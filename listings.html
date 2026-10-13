@@ -1,0 +1,202 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Find PGs, hostels, rooms and flats with StayNest.">
+  <title>Find Stays | StayNest</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="listings.css">
+  <script src="listings.js" defer></script>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <a href="index.html" class="brand">
+      <span class="brand-icon">⌂</span> StayNest
+    </a>
+
+    <button class="menu-toggle" id="menuToggle"
+            aria-label="Toggle navigation" aria-expanded="false">☰</button>
+
+    <nav class="nav-links" id="navLinks">
+      <a href="index.html">Home</a>
+      <a href="listings.html" class="active">Find Stays</a>
+      <a href="index.html#about">About</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+
+    <div class="nav-actions">
+      <a href="listings.html?view=saved">♡ Saved <span id="savedCount">0</span></a>
+      <a href="login.html">♙ Login / Register</a>
+    </div>
+  </header>
+
+  <!-- Hero and search -->
+  <section class="hero">
+    <div class="hero-content">
+      <span class="eyebrow">YOUR NEXT HOME STARTS HERE</span>
+      <h1>Find a stay that feels like <span>home.</span></h1>
+      <p>Discover comfortable PGs, hostels, rooms and flats that fit your budget.</p>
+
+      <form id="searchForm" class="search-bar">
+        <span class="search-icon" aria-hidden="true">⌕</span>
+        <input
+          id="locationSearch"
+          type="search"
+          placeholder="Search city or locality..."
+          aria-label="Search city or locality"
+        >
+        <button class="button button-primary" type="submit">Find my stay</button>
+      </form>
+
+      <div class="popular-searches">
+        <span>Popular:</span>
+        <button type="button" data-location="Vijay Nagar">Vijay Nagar</button>
+        <button type="button" data-location="Palasia">Palasia</button>
+        <button type="button" data-location="Bhawarkua">Bhawarkua</button>
+      </div>
+    </div>
+  </section>
+
+  <main class="page-container">
+    <!-- Page heading -->
+    <div class="page-heading">
+      <div>
+        <span class="eyebrow">EXPLORE ACCOMMODATIONS</span>
+        <h2>Find your perfect stay</h2>
+        <p>Compare prices, facilities and locations before choosing.</p>
+      </div>
+
+      <button id="openFilters" class="button filter-trigger" type="button">
+        ☷ Filters
+      </button>
+    </div>
+
+    <!-- Property categories -->
+    <div class="category-row" id="categoryRow">
+      <button class="category" data-type="All" type="button"><span>⌂</span> All stays</button>
+      <button class="category" data-type="PG" type="button"><span>♙</span> PG</button>
+      <button class="category" data-type="Hostel" type="button"><span>▤</span> Hostels</button>
+      <button class="category" data-type="Room" type="button"><span>▣</span> Rooms</button>
+      <button class="category" data-type="Flat" type="button"><span>⌂</span> Flats</button>
+    </div>
+
+    <div class="listing-layout">
+      <!-- Filter sidebar / mobile drawer -->
+      <aside class="filter-sidebar" id="filterSidebar">
+        <div class="filter-header">
+          <div>
+            <h3>Filters</h3>
+            <p>Find what works for you</p>
+          </div>
+          <button id="closeFilters" class="close-filters"
+                  type="button" aria-label="Close filters">×</button>
+        </div>
+
+        <div class="filter-group">
+          <label for="budgetRange">Monthly budget</label>
+          <div class="budget-value" id="budgetValue">Up to ₹20,000+</div>
+          <input type="range" id="budgetRange"
+                 min="3000" max="20000" step="500" value="20000">
+          <div class="range-labels"><span>₹3,000</span><span>₹20,000+</span></div>
+        </div>
+
+        <div class="filter-group">
+          <label for="typeFilter">Property type</label>
+          <select id="typeFilter">
+            <option value="All">All types</option>
+            <option value="PG">PG</option>
+            <option value="Hostel">Hostel</option>
+            <option value="Room">Room</option>
+            <option value="Flat">Flat</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label for="sharingFilter">Sharing type</label>
+          <select id="sharingFilter">
+            <option value="All">Any sharing</option>
+            <option value="Single">Single sharing</option>
+            <option value="Double">Double sharing</option>
+            <option value="Triple">Triple sharing</option>
+            <option value="Private">Private room / flat</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label>Meals</label>
+          <label class="check-row">
+            <input type="checkbox" id="mealsFilter">
+            Meals included
+          </label>
+        </div>
+
+        <div class="filter-group">
+          <label for="furnishedFilter">Furnishing</label>
+          <select id="furnishedFilter">
+            <option value="All">Any furnishing</option>
+            <option value="Furnished">Furnished</option>
+            <option value="Semi-Furnished">Semi-furnished</option>
+            <option value="Unfurnished">Unfurnished</option>
+          </select>
+        </div>
+
+        <div class="filter-actions">
+          <button id="clearFilters" class="button button-outline" type="button">
+            Clear filters
+          </button>
+          <button id="applyFilters" class="button button-primary" type="button">
+            Show stays
+          </button>
+        </div>
+      </aside>
+
+      <div id="filterOverlay" class="filter-overlay"></div>
+
+      <!-- Listings -->
+      <section class="results-section">
+        <div class="results-toolbar">
+          <div>
+            <h3 id="resultsTitle">Available stays</h3>
+            <p id="resultsCount" aria-live="polite">Loading properties...</p>
+          </div>
+
+          <label class="sort-control" for="sortFilter">
+            <span>Sort by</span>
+            <select id="sortFilter">
+              <option value="recommended">Recommended</option>
+              <option value="low">Rent: Low to high</option>
+              <option value="high">Rent: High to low</option>
+              <option value="rating">Top rated</option>
+            </select>
+          </label>
+        </div>
+
+        <div id="propertyGrid" class="property-grid"></div>
+
+        <div id="emptyState" class="empty-state" hidden>
+          <div class="empty-icon">⌕</div>
+          <h3>No stays match your filters</h3>
+          <p>Try another location, increase your budget or reset your filters.</p>
+          <button id="resetEmpty" class="button button-primary" type="button">
+            Reset filters
+          </button>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <a href="index.html" class="brand"><span class="brand-icon">⌂</span> StayNest</a>
+    <p>Find. Book. Stay.</p>
+    <p>© <span id="year"></span> StayNest</p>
+  </footer>
+
+</body>
+</html>

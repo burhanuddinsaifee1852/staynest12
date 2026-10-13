@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Review your stay selection and submit a demo booking request on StayNest.">
+  <title>Booking Request | StayNest</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="booking.css">
+  <script src="booking.js" defer></script>
+</head>
+<body>
+  <header class="navbar">
+    <a class="brand" href="index.html"><span class="brand-icon">⌂</span> StayNest</a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation" aria-expanded="false" type="button">☰</button>
+    <nav class="nav-links" id="navLinks">
+      <a href="index.html">Home</a>
+      <a href="listings.html">Find Stays</a>
+      <a href="dashboard.html">My Dashboard</a>
+    </nav>
+    <div class="nav-actions">
+      <a href="listings.html?view=saved">♡ Saved Stays</a>
+      <a href="login.html">Login / Register</a>
+    </div>
+  </header>
+
+  <main class="page-container">
+    <a id="backLink" class="back-link" href="listings.html">← Back to stays</a>
+    <header class="page-heading">
+      <span class="eyebrow">YOUR NEXT STAY</span>
+      <h1>Booking request</h1>
+      <p>Review the selected plan and share your contact details with the property owner.</p>
+    </header>
+
+    <section id="noSelection" class="empty-state" hidden>
+      <div class="empty-icon">▣</div>
+      <h2>No stay selected yet</h2>
+      <p>Choose a property and plan before continuing.</p>
+      <a class="button button-primary" href="listings.html">Explore stays</a>
+    </section>
+
+    <section id="bookingLayout" class="booking-layout" hidden>
+      <form id="bookingForm" class="booking-form" novalidate>
+        <div class="card-heading">
+          <span class="step-number">1</span>
+          <div><h2>Your details</h2><p>How can the property owner contact you?</p></div>
+        </div>
+
+        <div class="form-grid">
+          <div class="form-field">
+            <label for="guestName">Full name *</label>
+            <input id="guestName" name="name" type="text" minlength="2" maxlength="80" autocomplete="name" required placeholder="Enter your full name">
+          </div>
+          <div class="form-field">
+            <label for="guestEmail">Email address *</label>
+            <input id="guestEmail" name="email" type="email" maxlength="254" autocomplete="email" required placeholder="you@example.com">
+          </div>
+          <div class="form-field">
+            <label for="guestPhone">Phone number *</label>
+            <input id="guestPhone" name="phone" type="tel" minlength="7" maxlength="20" autocomplete="tel" required placeholder="Your contact number">
+          </div>
+          <div class="form-field">
+            <label for="moveInDate">Expected move-in date *</label>
+            <input id="moveInDate" name="moveInDate" type="date" required>
+          </div>
+          <div class="form-field">
+            <label for="duration">Expected stay duration</label>
+            <select id="duration" name="duration">
+              <option value="1 month">1 month</option>
+              <option value="3 months">3 months</option>
+              <option value="6 months" selected>6 months</option>
+              <option value="12 months">12 months</option>
+              <option value="Flexible">Flexible</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label for="occupants">Number of occupants</label>
+            <select id="occupants" name="occupants">
+              <option value="1" selected>1 person</option>
+              <option value="2">2 people</option>
+              <option value="3">3 people</option>
+              <option value="4+">4+ people</option>
+            </select>
+          </div>
+          <div class="form-field full-width">
+            <label for="message">Message to owner (optional)</label>
+            <textarea id="message" name="message" rows="4" maxlength="500" placeholder="Ask about availability, facilities or visiting times..."></textarea>
+          </div>
+        </div>
+
+        <label class="terms-row">
+          <input id="agreeDemo" type="checkbox" required>
+          <span>I understand this is a demo request, not a confirmed booking or payment.</span>
+        </label>
+        <p id="formError" class="form-error" role="alert" hidden></p>
+        <button type="submit" class="button button-primary button-full submit-button">Submit booking request</button>
+        <p class="form-note">Frontend demo only. Do not enter sensitive information. This page does not send your details to a server.</p>
+      </form>
+
+      <aside class="summary-column">
+        <section class="summary-card">
+          <div class="card-heading"><span class="step-number">2</span><div><h2>Your selected stay</h2><p>Confirm the property and plan.</p></div></div>
+          <img id="propertyImage" class="property-image" src="" alt="Selected property">
+          <div class="property-summary">
+            <div class="property-title-row"><h3 id="propertyName">Selected property</h3><span id="propertyRating" class="rating">★ —</span></div>
+            <p id="propertyLocation" class="muted">Property location</p>
+            <span id="propertyType" class="type-pill">Accommodation</span>
+          </div>
+          <div class="summary-line"><span>Selected plan</span><strong id="planName">—</strong></div>
+          <div class="summary-line"><span>Monthly rent</span><strong id="monthlyRent">—</strong></div>
+          <div class="summary-line"><span>Rent unit</span><strong id="rentUnit">—</strong></div>
+          <div class="summary-total"><span>Estimated monthly rent</span><strong id="summaryTotal">—</strong></div>
+          <a id="viewProperty" href="listings.html" class="button button-outline button-full">View property details</a>
+        </section>
+        <div class="info-card"><strong>What happens next?</strong><p>Your demo request is saved in this browser so you can view it later. No owner is contacted and no booking is confirmed.</p></div>
+      </aside>
+    </section>
+
+    <section id="successState" class="success-state" hidden>
+      <div class="success-icon">✓</div>
+      <span class="eyebrow">REQUEST SAVED LOCALLY</span>
+      <h2>Your demo request is ready!</h2>
+      <p id="successText">Your request was saved in this browser.</p>
+      <div class="success-actions">
+        <a href="dashboard.html" class="button button-primary">View dashboard</a>
+        <a href="listings.html" class="button button-outline">Browse more stays</a>
+      </div>
+      <p class="form-note">This is not a real reservation. No payment or message has been sent to the property owner.</p>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <a href="index.html" class="brand"><span class="brand-icon">⌂</span> StayNest</a>
+    <p>Find. Book. Stay.</p>
+    <p>© <span id="year"></span> StayNest</p>
+  </footer>
+</body>
+</html>
