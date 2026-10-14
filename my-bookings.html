@@ -1,0 +1,112 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="View and manage your StayNest accommodation bookings.">
+    <title>My Bookings | StayNest</title>
+    <link rel="stylesheet" href="my-bookings.css">
+    <script src="my-bookings.js" defer></script>
+</head>
+<body>
+
+    <header class="navbar">
+        <a href="index.html" class="logo">StayNest<span>.</span></a>
+
+        <button class="menu-toggle" id="menuToggle"
+                aria-label="Open navigation" aria-expanded="false">
+            ☰
+        </button>
+
+        <nav class="nav-links" id="navLinks">
+            <a href="index.html">Home</a>
+            <a href="listings.html">Explore Stays</a>
+            <a href="my-bookings.html" class="active" aria-current="page">
+                My Bookings
+            </a>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="login.html">Login</a>
+        </nav>
+    </header>
+
+    <main class="container">
+
+        <section class="page-heading">
+            <div>
+                <p class="eyebrow">YOUR TRAVEL SPACE</p>
+                <h1>My Bookings</h1>
+                <p class="subtitle">
+                    Manage your reservations and get ready for your next stay.
+                </p>
+            </div>
+
+            <a href="listings.html" class="primary-btn">+ Find a Stay</a>
+        </section>
+
+        <section class="stats-grid" aria-label="Booking statistics">
+            <article class="stat-card">
+                <div class="stat-icon purple">▤</div>
+                <p>Total Bookings</p>
+                <h2 id="totalBookings">0</h2>
+            </article>
+
+            <article class="stat-card">
+                <div class="stat-icon green">✓</div>
+                <p>Upcoming Stays</p>
+                <h2 id="upcomingBookings">0</h2>
+            </article>
+
+            <article class="stat-card">
+                <div class="stat-icon orange">⌂</div>
+                <p>Completed Stays</p>
+                <h2 id="completedBookings">0</h2>
+            </article>
+        </section>
+
+        <section class="booking-section">
+            <div class="section-heading">
+                <div>
+                    <h2>Your Reservations</h2>
+                    <p class="section-subtitle">
+                        All your trips, organized in one place.
+                    </p>
+                </div>
+
+                <label class="filter-control">
+                    <span class="visually-hidden">Filter bookings</span>
+                    <select id="bookingFilter">
+                        <option value="all">All Bookings</option>
+                        <option value="upcoming">Upcoming</option>
+                        <option value="completed">Completed</option>
+                    </select>
+                </label>
+            </div>
+
+            <div id="bookingList" class="booking-list" aria-live="polite">
+                <p class="loading-message">Loading your bookings...</p>
+            </div>
+        </section>
+
+        <section class="help-card">
+            <div class="help-icon">?</div>
+            <div>
+                <h3>Need help with a booking?</h3>
+                <p>
+                    For assistance with your reservation, contact the
+                    StayNest support team.
+                </p>
+            </div>
+            <a href="index.html" class="help-link">Back to Home →</a>
+        </section>
+
+    </main>
+
+    <footer class="footer">
+        <a href="index.html" class="logo">StayNest<span>.</span></a>
+        <p>Find your place. Feel at home.</p>
+        <p class="copyright">© 2026 StayNest. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
