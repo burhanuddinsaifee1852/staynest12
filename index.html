@@ -1,275 +1,352 @@
-
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Manage your saved stays and account on StayNest.">
-  <title>My Dashboard | StayNest</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="dashboard.css">
-  <script src="dashboard.js" defer></script>
+    <title>StayNest | Find Your Perfect Stay</title>
+
+    <meta name="description"
+          content="Discover comfortable stays, explore beautiful properties, and plan your next trip with StayNest.">
+
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-<header class="navbar">
-  <a href="index.html" class="brand">
-    <span class="brand-icon">⌂</span> StayNest
-  </a>
-
-  <button id="menuToggle" class="menu-toggle"
-          type="button" aria-label="Toggle dashboard menu"
-          aria-expanded="false">☰</button>
-
-  <nav class="nav-links" id="navLinks">
-    <a href="index.html">Home</a>
-    <a href="listings.html">Find Stays</a>
-    <a href="dashboard.html" aria-current="page">My Dashboard</a>
-  </nav>
-
-  <div class="nav-actions">
-    <a href="listings.html?view=saved">♡ Saved Stays</a>
-    <a href="login.html">Login / Register</a>
-  </div>
-</header>
-
-<main class="dashboard-container">
-
-  <aside class="sidebar" id="sidebar">
-    <div class="user-summary">
-      <div class="avatar" id="sidebarAvatar">S</div>
-      <div>
-        <strong id="sidebarName">StayNest Member</strong>
-        <span>Personal dashboard</span>
-      </div>
-    </div>
-
-    <p class="sidebar-label">MENU</p>
-
-    <nav class="dashboard-nav" aria-label="Dashboard sections">
-      <button class="dashboard-nav-button active" type="button" data-view="overview">
-        <span>▦</span> Overview
-      </button>
-      <button class="dashboard-nav-button" type="button" data-view="bookings">
-        <span>▣</span> My Bookings
-      </button>
-      <button class="dashboard-nav-button" type="button" data-view="saved">
-        <span>♡</span> Saved Properties
-      </button>
-      <button class="dashboard-nav-button" type="button" data-view="profile">
-        <span>♙</span> My Profile
-      </button>
-    </nav>
-
-    <div class="sidebar-help">
-      <div class="help-icon">⌂</div>
-      <strong>Find your next home</strong>
-      <p>Explore stays that fit your lifestyle and budget.</p>
-      <a href="listings.html" class="button button-primary button-full">
-        Explore stays
-      </a>
-    </div>
-  </aside>
-
-  <section class="dashboard-main">
-
-    <div class="page-top">
-      <div>
-        <span class="eyebrow">YOUR STAYNEST SPACE</span>
-        <h1 id="pageTitle">Dashboard Overview</h1>
-        <p id="pageSubtitle">Manage your saved stays and accommodation plans.</p>
-      </div>
-      <span class="demo-badge">Frontend demo</span>
-    </div>
-
-    <!-- OVERVIEW -->
-    <section class="view-panel active" id="overviewView">
-      <div class="welcome-banner">
-        <div>
-          <span class="welcome-eyebrow">WELCOME TO YOUR DASHBOARD</span>
-          <h2>Hello, <span id="welcomeName">there</span>! 👋</h2>
-          <p>Your next comfortable stay could be just around the corner.</p>
-          <a href="listings.html" class="button welcome-button">Find a stay →</a>
-        </div>
-        <div class="welcome-decoration" aria-hidden="true">⌂</div>
-      </div>
-
-      <div class="stats-grid">
-        <article class="stat-card">
-          <div class="stat-icon blue">♡</div>
-          <div>
-            <p>Saved properties</p>
-            <h3 id="savedStat">0</h3>
-            <span>Stays you like</span>
-          </div>
-        </article>
-
-        <article class="stat-card">
-          <div class="stat-icon purple">▣</div>
-          <div>
-            <p>Pending selections</p>
-            <h3 id="bookingStat">0</h3>
-            <span>Not confirmed bookings</span>
-          </div>
-        </article>
-
-        <article class="stat-card">
-          <div class="stat-icon green">♙</div>
-          <div>
-            <p>Profile</p>
-            <h3 id="profileStat">Basic</h3>
-            <span>Details stored on this device</span>
-          </div>
-        </article>
-      </div>
-
-      <div class="section-heading">
-        <div>
-          <h2>Quick actions</h2>
-          <p>Get straight to what you need.</p>
-        </div>
-      </div>
-
-      <div class="quick-grid">
-        <a class="quick-card" href="listings.html">
-          <span class="quick-icon">⌕</span>
-          <strong>Find accommodation</strong>
-          <span>Search PGs, hostels, rooms and flats →</span>
+    <!-- Navigation -->
+    <header class="navbar">
+        <a href="index.html" class="logo">
+            StayNest<span>.</span>
         </a>
 
-        <button class="quick-card" type="button" data-view="saved">
-          <span class="quick-icon">♡</span>
-          <strong>Saved properties</strong>
-          <span>Review stays you saved →</span>
+        <nav class="nav-links" id="navLinks">
+            <a href="index.html" class="active">Home</a>
+            <a href="listings.html">Explore Stays</a>
+            <a href="my-bookings.html">My Bookings</a>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="login.html">Login</a>
+        </nav>
+
+        <button class="menu-toggle" id="menuToggle"
+                aria-label="Toggle navigation"
+                aria-expanded="false">
+            ☰
         </button>
+    </header>
 
-        <button class="quick-card" type="button" data-view="profile">
-          <span class="quick-icon">♙</span>
-          <strong>Update profile</strong>
-          <span>Edit your personal details →</span>
-        </button>
-      </div>
+    <main>
 
-      <div class="section-heading recent-heading">
-        <div>
-          <h2>Recent activity</h2>
-          <p>Your latest locally saved selection.</p>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <span class="hero-badge">YOUR NEXT STAY STARTS HERE</span>
+
+                <h1>
+                    Find your place.<br>
+                    <span>Feel at home.</span>
+                </h1>
+
+                <p>
+                    Discover amazing places to stay, from cozy apartments
+                    to beautiful holiday homes. Your perfect getaway is
+                    just a few clicks away.
+                </p>
+
+                <div class="hero-actions">
+                    <a href="listings.html" class="primary-btn">
+                        Explore Stays →
+                    </a>
+
+                    <a href="#destinations" class="secondary-btn">
+                        Discover More
+                    </a>
+                </div>
+            </div>
+
+            <div class="hero-image">
+                <img
+                    src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1200&q=85"
+                    alt="Beautiful modern living room"
+                >
+
+                <div class="floating-card">
+                    <span class="floating-icon">⌂</span>
+                    <div>
+                        <strong>Find your happy place</strong>
+                        <p>Comfort, convenience, and memorable stays.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Search Section -->
+        <section class="search-section">
+            <form id="searchForm" class="search-form">
+                <div class="search-field">
+                    <label for="destination">Destination</label>
+                    <input
+                        type="text"
+                        id="destination"
+                        name="destination"
+                        placeholder="Where do you want to go?"
+                    >
+                </div>
+
+                <div class="search-field">
+                    <label for="checkIn">Check-in</label>
+                    <input type="date" id="checkIn" name="checkIn">
+                </div>
+
+                <div class="search-field">
+                    <label for="checkOut">Check-out</label>
+                    <input type="date" id="checkOut" name="checkOut">
+                </div>
+
+                <div class="search-field">
+                    <label for="guests">Guests</label>
+                    <select id="guests" name="guests">
+                        <option value="1">1 Guest</option>
+                        <option value="2" selected>2 Guests</option>
+                        <option value="3">3 Guests</option>
+                        <option value="4">4 Guests</option>
+                        <option value="5">5 Guests</option>
+                        <option value="6">6+ Guests</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="primary-btn search-btn">
+                    Search
+                </button>
+            </form>
+        </section>
+
+        <!-- Benefits -->
+        <section class="benefits">
+            <div class="benefit">
+                <span>⌂</span>
+                <div>
+                    <h3>Handpicked Stays</h3>
+                    <p>Explore places for different budgets and needs.</p>
+                </div>
+            </div>
+
+            <div class="benefit">
+                <span>♡</span>
+                <div>
+                    <h3>Comfort First</h3>
+                    <p>Find spaces where you can feel at home.</p>
+                </div>
+            </div>
+
+            <div class="benefit">
+                <span>✓</span>
+                <div>
+                    <h3>Easy Booking</h3>
+                    <p>Keep your travel plans organized in one place.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Popular Destinations -->
+        <section class="destinations section" id="destinations">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">EXPLORE THE WORLD</p>
+                    <h2>Popular Destinations</h2>
+                    <p>Get inspired for your next adventure.</p>
+                </div>
+
+                <a href="listings.html" class="text-link">
+                    View all stays →
+                </a>
+            </div>
+
+            <div class="destination-grid">
+
+                <a href="listings.html?destination=Indore"
+                   class="destination-card">
+                    <img
+                        src="https://images.unsplash.com/photo-1511818966892-d7d671e672a2?auto=format&fit=crop&w=700&q=80"
+                        alt="City architecture"
+                        loading="lazy"
+                    >
+                    <div class="destination-overlay">
+                        <h3>Indore</h3>
+                        <p>Explore city stays</p>
+                    </div>
+                </a>
+
+                <a href="listings.html?destination=Goa"
+                   class="destination-card">
+                    <img
+                        src="https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=700&q=80"
+                        alt="Goa beach"
+                        loading="lazy"
+                    >
+                    <div class="destination-overlay">
+                        <h3>Goa</h3>
+                        <p>Relax by the beach</p>
+                    </div>
+                </a>
+
+                <a href="listings.html?destination=Manali"
+                   class="destination-card">
+                    <img
+                        src="https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=700&q=80"
+                        alt="Mountain landscape"
+                        loading="lazy"
+                    >
+                    <div class="destination-overlay">
+                        <h3>Manali</h3>
+                        <p>Escape to the mountains</p>
+                    </div>
+                </a>
+
+                <a href="listings.html?destination=Udaipur"
+                   class="destination-card">
+                    <img
+                        src="https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&w=700&q=80"
+                        alt="Traditional lakeside architecture"
+                        loading="lazy"
+                    >
+                    <div class="destination-overlay">
+                        <h3>Udaipur</h3>
+                        <p>Discover royal charm</p>
+                    </div>
+                </a>
+
+            </div>
+        </section>
+
+        <!-- Featured Stays -->
+        <section class="featured section">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">YOUR NEXT GETAWAY</p>
+                    <h2>Find Your Perfect Stay</h2>
+                    <p>Explore a few places to inspire your next trip.</p>
+                </div>
+
+                <a href="listings.html" class="text-link">
+                    Explore all →
+                </a>
+            </div>
+
+            <div class="featured-grid">
+
+                <article class="stay-card">
+                    <img
+                        src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=800&q=80"
+                        alt="Modern luxury apartment"
+                        loading="lazy"
+                    >
+
+                    <div class="stay-card-content">
+                        <span class="stay-type">APARTMENT</span>
+                        <h3>Modern City Apartment</h3>
+                        <p>Comfortable space with a modern interior.</p>
+                        <div class="stay-card-bottom">
+                            <span><strong>₹1,800</strong> / night</span>
+                            <a href="listings.html">View Stay →</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="stay-card">
+                    <img
+                        src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=800&q=80"
+                        alt="Private holiday villa"
+                        loading="lazy"
+                    >
+
+                    <div class="stay-card-content">
+                        <span class="stay-type">VILLA</span>
+                        <h3>Private Holiday Villa</h3>
+                        <p>A relaxing space for friends and family.</p>
+                        <div class="stay-card-bottom">
+                            <span><strong>₹4,500</strong> / night</span>
+                            <a href="listings.html">View Stay →</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="stay-card">
+                    <img
+                        src="https://images.unsplash.com/photo-1445019980597-93fa8acb246c?auto=format&fit=crop&w=800&q=80"
+                        alt="Cozy hotel bedroom"
+                        loading="lazy"
+                    >
+
+                    <div class="stay-card-content">
+                        <span class="stay-type">HOTEL</span>
+                        <h3>Cozy Boutique Stay</h3>
+                        <p>A welcoming place for a peaceful getaway.</p>
+                        <div class="stay-card-bottom">
+                            <span><strong>₹2,200</strong> / night</span>
+                            <a href="listings.html">View Stay →</a>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+
+            <p class="demo-note">
+                Example properties and prices are for demonstration only.
+            </p>
+        </section>
+
+        <!-- Call to Action -->
+        <section class="cta-section">
+            <div>
+                <p class="eyebrow">MAKE YOUR NEXT MOVE</p>
+                <h2>Your next memorable stay is waiting.</h2>
+                <p>Start exploring places that match your travel plans.</p>
+            </div>
+
+            <a href="listings.html" class="cta-btn">
+                Explore Stays →
+            </a>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-main">
+            <div class="footer-brand">
+                <a href="index.html" class="logo">
+                    StayNest<span>.</span>
+                </a>
+
+                <p>
+                    Discover places to stay and make every journey
+                    feel a little more like home.
+                </p>
+            </div>
+
+            <div class="footer-links">
+                <h4>Explore</h4>
+                <a href="listings.html">All Stays</a>
+                <a href="#destinations">Destinations</a>
+            </div>
+
+            <div class="footer-links">
+                <h4>Your Account</h4>
+                <a href="my-bookings.html">My Bookings</a>
+                <a href="dashboard.html">Dashboard</a>
+                <a href="login.html">Login</a>
+            </div>
         </div>
-        <button class="text-link" type="button" data-view="bookings">
-          View details →
-        </button>
-      </div>
 
-      <div id="recentActivity" class="activity-card"></div>
-    </section>
-
-    <!-- SAVED PROPERTIES -->
-    <section class="view-panel" id="savedView" hidden>
-      <div class="section-heading section-heading-top">
-        <div>
-          <h2>Your saved properties</h2>
-          <p>Keep the stays you like in one place.</p>
+        <div class="footer-bottom">
+            <p>© 2026 StayNest. All rights reserved.</p>
+            <p>Made for better stays and memorable journeys.</p>
         </div>
-        <a href="listings.html" class="button button-primary">Find more stays</a>
-      </div>
+    </footer>
 
-      <div id="savedGrid" class="saved-grid"></div>
-
-      <div id="savedEmpty" class="empty-state" hidden>
-        <div class="empty-icon">♡</div>
-        <h3>No saved properties yet</h3>
-        <p>Tap the heart on any property card to save it here.</p>
-        <a class="button button-primary" href="listings.html">Explore properties</a>
-      </div>
-    </section>
-
-    <!-- BOOKINGS / SELECTIONS -->
-    <section class="view-panel" id="bookingsView" hidden>
-      <div class="section-heading section-heading-top">
-        <div>
-          <h2>My bookings &amp; selections</h2>
-          <p>Review the property plan you selected.</p>
-        </div>
-        <a href="listings.html" class="button button-primary">Explore stays</a>
-      </div>
-
-      <div id="bookingList"></div>
-
-      <div id="bookingEmpty" class="empty-state" hidden>
-        <div class="empty-icon">▣</div>
-        <h3>No selections yet</h3>
-        <p>Choose a plan on a property's details page to see it here.</p>
-        <a class="button button-primary" href="listings.html">Find accommodation</a>
-      </div>
-
-      <p class="notice">
-        Demo only: a saved selection is not a reservation, payment, or confirmed booking.
-      </p>
-    </section>
-
-    <!-- PROFILE -->
-    <section class="view-panel" id="profileView" hidden>
-      <div class="section-heading section-heading-top">
-        <div>
-          <h2>My profile</h2>
-          <p>Update the basic details stored in this browser.</p>
-        </div>
-      </div>
-
-      <form id="profileForm" class="profile-card">
-        <div class="profile-avatar-large" id="profileAvatar">S</div>
-
-        <div class="profile-form-grid">
-          <div class="form-field">
-            <label for="profileName">Full name</label>
-            <input id="profileName" name="name" type="text"
-                   maxlength="80" minlength="2"
-                   placeholder="Your name" required>
-          </div>
-
-          <div class="form-field">
-            <label for="profileEmail">Email address</label>
-            <input id="profileEmail" name="email" type="email"
-                   maxlength="254" placeholder="you@example.com">
-          </div>
-
-          <div class="form-field">
-            <label for="profilePhone">Phone (optional)</label>
-            <input id="profilePhone" name="phone" type="tel"
-                   maxlength="20" placeholder="Your phone number">
-          </div>
-
-          <div class="form-field">
-            <label for="profileCity">Preferred city</label>
-            <input id="profileCity" name="city" type="text"
-                   maxlength="100" placeholder="e.g. Indore">
-          </div>
-        </div>
-
-        <p class="profile-note">
-          These fields are stored only in this browser for the frontend demo.
-          Do not enter passwords or sensitive information here.
-        </p>
-
-        <button type="submit" class="button button-primary">Save profile</button>
-      </form>
-    </section>
-
-  </section>
-</main>
-
-<div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
-
-<footer class="footer">
-  <a href="index.html" class="brand">
-    <span class="brand-icon">⌂</span> StayNest
-  </a>
-  <p>Find. Book. Stay.</p>
-  <p>© <span id="year"></span> StayNest</p>
-</footer>
-
+    <script src="script.js"></script>
 </body>
 </html>
+```
