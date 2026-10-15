@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Manage your StayNest properties and bookings.">
+    <title>Owner Dashboard | StayNest</title>
+    <link rel="stylesheet" href="owner-dashboard.css">
+    <script src="owner-dashboard.js" defer></script>
+</head>
+<body>
+
+<header class="navbar">
+    <a href="index.html" class="logo">Stay<span>Nest</span></a>
+
+    <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="listings.html">Explore Stays</a>
+        <a href="dashboard.html">My Dashboard</a>
+        <a href="my-bookings.html">My Bookings</a>
+    </nav>
+
+    <a href="index.html" class="nav-button">Visit Website</a>
+</header>
+
+<main class="container">
+
+    <section class="welcome-section">
+        <div>
+            <p class="eyebrow">OWNER CONTROL CENTER</p>
+            <h1>Owner Dashboard</h1>
+            <p>Manage your properties and keep track of your bookings.</p>
+        </div>
+
+        <button id="addPropertyBtn" class="primary-button">
+            + Add Property
+        </button>
+    </section>
+
+    <section class="stats-grid">
+
+        <article class="stat-card">
+            <div class="stat-icon">🏠</div>
+            <p>Total Properties</p>
+            <h2 id="totalProperties">0</h2>
+            <span>Your listed properties</span>
+        </article>
+
+        <article class="stat-card">
+            <div class="stat-icon">📅</div>
+            <p>Total Bookings</p>
+            <h2 id="totalBookings">0</h2>
+            <span>Bookings recorded locally</span>
+        </article>
+
+        <article class="stat-card">
+            <div class="stat-icon">💰</div>
+            <p>Estimated Revenue</p>
+            <h2 id="totalRevenue">₹0</h2>
+            <span>Based on demo booking data</span>
+        </article>
+    </section>
+
+    <section class="content-card">
+        <div class="section-heading">
+            <div>
+                <h2>My Properties</h2>
+                <p>Manage the properties you want to offer to guests.</p>
+            </div>
+
+            <select id="propertyFilter" aria-label="Filter properties">
+                <option value="all">All Properties</option>
+                <option value="available">Available</option>
+                <option value="unavailable">Unavailable</option>
+            </select>
+        </div>
+
+        <div id="propertyList" class="property-grid"></div>
+
+        <div id="emptyState" class="empty-state" hidden>
+            <div class="empty-icon">🏡</div>
+            <h3>No properties yet</h3>
+            <p>Add your first property to start building your listings.</p>
+            <button id="emptyAddBtn" class="primary-button">
+                Add Your First Property
+            </button>
+        </div>
+    </section>
+
+    <section class="content-card">
+        <div class="section-heading">
+            <div>
+                <h2>Recent Bookings</h2>
+                <p>Booking records available in this browser.</p>
+            </div>
+        </div>
+
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Guest</th>
+                        <th>Property</th>
+                        <th>Check-in</th>
+                        <th>Amount</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+
+                <tbody id="bookingTableBody"></tbody>
+            </table>
+        </div>
+
+        <p id="noBookingsMessage" class="table-empty" hidden>
+            No booking records found. Bookings will appear here when available.
+        </p>
+    </section>
+
+</main>
+
+<div id="propertyModal" class="modal" hidden>
+    <div class="modal-backdrop" data-close-modal></div>
+
+    <section
+        class="modal-content"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modalTitle"
+    >
+        <div class="modal-heading">
+            <div>
+                <p class="eyebrow">PROPERTY MANAGEMENT</p>
+                <h2 id="modalTitle">Add New Property</h2>
+            </div>
+
+            <button
+                type="button"
+                id="closeModalBtn"
+                class="close-button"
+                aria-label="Close form"
+            >&times;</button>
+        </div>
+
+        <form id="propertyForm">
+
+            <input type="hidden" id="propertyId">
+
+            <label for="propertyName">Property Name *</label>
+            <input
+                type="text"
+                id="propertyName"
+                maxlength="100"
+                placeholder="e.g. Cozy City Apartment"
+                required
+            >
+
+            <label for="propertyLocation">Location *</label>
+            <input
+                type="text"
+                id="propertyLocation"
+                maxlength="150"
+                placeholder="e.g. Indore, Madhya Pradesh"
+                required
+            >
+
+            <div class="form-row">
+                <div>
+                    <label for="propertyPrice">Price per Night (₹) *</label>
+                    <input
+                        type="number"
+                        id="propertyPrice"
+                        min="1"
+                        max="10000000"
+                        step="1"
+                        placeholder="2500"
+                        required
+                    >
+                </div>
+
+                <div>
+                    <label for="propertyGuests">Maximum Guests *</label>
+                    <input
+                        type="number"
+                        id="propertyGuests"
+                        min="1"
+                        max="100"
+                        step="1"
+                        value="2"
+                        required
+                    >
+                </div>
+            </div>
+
+            <label for="propertyImage">Image URL (optional)</label>
+            <input
+                type="url"
+                id="propertyImage"
+                maxlength="1000"
+                placeholder="https://example.com/property.jpg"
+            >
+
+            <label for="propertyDescription">Description *</label>
+            <textarea
+                id="propertyDescription"
+                rows="4"
+                maxlength="1000"
+                placeholder="Describe your property..."
+                required
+            ></textarea>
+
+            <label class="checkbox-row">
+                <input type="checkbox" id="propertyAvailable" checked>
+                <span>Property is available for booking</span>
+            </label>
+
+            <p id="formError" class="form-error" role="alert"></p>
+
+            <div class="form-actions">
+                <button type="button" id="cancelModalBtn" class="secondary-button">
+                    Cancel
+                </button>
+
+                <button type="submit" class="primary-button">
+                    Save Property
+                </button>
+            </div>
+
+        </form>
+    </section>
+</div>
+
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+<footer class="footer">
+    <p>&copy; <span id="currentYear"></span> StayNest. Made for better stays.</p>
+</footer>
+
+</body>
+</html>
