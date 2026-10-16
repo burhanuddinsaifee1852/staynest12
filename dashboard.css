@@ -1,0 +1,52 @@
+/* =========================================
+   TENANT DASHBOARD (extends style.css)
+========================================= */
+
+.dash-layout { display: grid; grid-template-columns: 260px minmax(0, 1fr); gap: 28px; padding-top: 26px; align-items: start; }
+.dash-side { position: sticky; top: 90px; display: grid; gap: 16px; padding: 18px; background: #fff; border: 1px solid var(--line); border-radius: var(--radius-lg); box-shadow: var(--shadow); }
+.dash-user { display: flex; align-items: center; gap: 12px; padding-bottom: 14px; border-bottom: 1px solid var(--line); min-width: 0; }
+.dash-user strong { display: block; color: var(--navy); overflow-wrap: anywhere; }
+.dash-user small { color: var(--muted); overflow-wrap: anywhere; }
+.sn-avatar.big { width: 46px; height: 46px; font-size: 1rem; flex: none; }
+.dash-nav { display: grid; gap: 4px; }
+.dash-nav a { display: flex; align-items: center; gap: 12px; padding: 11px 12px; border-radius: 10px; font-weight: 600; color: var(--navy-2); }
+.dash-nav a:hover { background: var(--blue-50); }
+.dash-nav a.is-active { background: var(--blue-50); color: var(--blue); }
+.side-count { margin-left: auto; min-width: 22px; padding: 0 7px; border-radius: 999px; background: #e9eef8; color: var(--navy-2); font-size: 0.74rem; line-height: 22px; text-align: center; }
+.side-count[hidden] { display: none; }
+
+.dash-main { min-width: 0; outline: none; }
+.dash-title { font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 800; letter-spacing: -0.03em; color: var(--navy); }
+.dash-sub { margin: 4px 0 22px; color: var(--muted); }
+
+.login-banner { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 18px; padding: 12px 16px; border-radius: 12px; background: var(--peach); color: var(--navy); font-weight: 600; }
+
+.stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 26px; }
+.stat { display: flex; align-items: center; gap: 14px; padding: 18px; background: #fff; border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); }
+.stat .round { display: grid; place-items: center; width: 46px; height: 46px; border-radius: 12px; background: var(--blue-50); color: var(--blue); }
+.stat strong { display: block; font-size: 1.7rem; line-height: 1.1; color: var(--navy); }
+.stat span.l { color: var(--muted); font-size: 0.86rem; }
+
+.block-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 26px 0 12px; }
+.block-head h2 { font-size: 1.2rem; color: var(--navy); }
+
+.saved-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 18px; }
+.mini-list { display: grid; gap: 10px; }
+.mini-row { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; padding: 14px 16px; background: #fff; border: 1px solid var(--line); border-radius: var(--radius); }
+.mini-row .what { flex: 1; min-width: 180px; }
+.mini-row .what strong { display: block; color: var(--navy); }
+.mini-row .what span { color: var(--muted); font-size: 0.86rem; }
+
+.account-card { max-width: 640px; padding: 26px; background: #fff; border: 1px solid var(--line); border-radius: var(--radius-lg); box-shadow: var(--shadow); }
+.account-card .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.account-card .span-2 { grid-column: 1 / -1; }
+.account-card .actions { display: flex; gap: 10px; margin-top: 20px; }
+
+@media (max-width: 900px) {
+  .dash-layout { grid-template-columns: 1fr; }
+  .dash-side { position: static; }
+  .dash-nav { grid-auto-flow: column; grid-auto-columns: max-content; overflow-x: auto; }
+  .dash-nav a { white-space: nowrap; }
+  .stat-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 560px) { .account-card .form-grid { grid-template-columns: 1fr; } }

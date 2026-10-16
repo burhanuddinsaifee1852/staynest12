@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Room options, amenities, costs and house rules for this StayNest property.">
+  <title>Property details | StayNest</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+
+  <script src="owner-data.js" defer></script>
+  <script src="details.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#detailRoot">Skip to property details</a>
+  <header id="siteHeader"></header>
+
+  <main class="wrap details-page" id="detailRoot" tabindex="-1">
+    <div class="skeleton" style="height:420px;margin-top:24px" aria-label="Loading property"></div>
+  </main>
+
+  <!-- Photo viewer -->
+  <dialog id="photoDialog" class="photo-dialog" aria-label="Property photos">
+    <div class="photo-top">
+      <span id="photoCount" aria-live="polite">1 of 1</span>
+      <button class="dialog-close photo-close" type="button" data-close aria-label="Close photos"><span data-icon="close" data-size="22"></span></button>
+    </div>
+    <div class="photo-stage">
+      <button class="photo-nav" type="button" id="photoPrev" aria-label="Previous photo"><span data-icon="left" data-size="22"></span></button>
+      <div class="photo-frame" id="photoFrame"></div>
+      <button class="photo-nav" type="button" id="photoNext" aria-label="Next photo"><span data-icon="right" data-size="22"></span></button>
+    </div>
+    <div class="photo-thumbs" id="photoThumbs"></div>
+  </dialog>
+
+  <!-- Schedule a visit -->
+  <dialog id="visitDialog" aria-labelledby="visitTitle">
+    <form id="visitForm" novalidate>
+      <div class="dialog-head">
+        <div>
+          <h2 id="visitTitle">Schedule a visit</h2>
+          <p id="visitSub">Your request will be sent to the owner.</p>
+        </div>
+        <button class="dialog-close" type="button" data-close aria-label="Close"><span data-icon="close" data-size="20"></span></button>
+      </div>
+      <div class="dialog-body visit-body">
+        <div class="field" id="visitDateField">
+          <label for="visitDate">Select date</label>
+          <input class="input" type="date" id="visitDate" required aria-describedby="visitDateError">
+          <p class="field-error" id="visitDateError" hidden></p>
+        </div>
+        <fieldset class="time-group">
+          <legend>Select time (IST)</legend>
+          <label class="time-chip"><input type="radio" name="visitTime" value="10:00 AM" checked><span>10:00 AM</span></label>
+          <label class="time-chip"><input type="radio" name="visitTime" value="2:00 PM"><span>2:00 PM</span></label>
+          <label class="time-chip"><input type="radio" name="visitTime" value="4:00 PM"><span>4:00 PM</span></label>
+        </fieldset>
+        <div class="field">
+          <label for="visitNote">Add a note (optional)</label>
+          <textarea class="textarea" id="visitNote" maxlength="300" placeholder="e.g. I am a student from IIM Indore. Would like to see the room and know more about the house rules."></textarea>
+          <p class="field-hint" id="noteCount" aria-live="off">0/300</p>
+        </div>
+      </div>
+      <div class="dialog-foot">
+        <button class="btn btn-ghost" type="button" data-close>Cancel</button>
+        <button class="btn btn-primary" type="submit" id="visitSubmit">Request visit</button>
+      </div>
+    </form>
+  </dialog>
+
+  <footer id="siteFooter"></footer>
+</body>
+</html>

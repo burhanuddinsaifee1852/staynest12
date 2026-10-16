@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Owner dashboard for managing StayNest properties and booking requests.">
+  <title>Owner Dashboard | StayNest</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="owner-dashboard.css">
+
+  <script src="owner-data.js" defer></script>
+  <script src="owner-dashboard.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <div class="owner-shell">
+    <aside class="owner-side" aria-label="Owner navigation">
+      <a class="brand" href="owner-dashboard.html" aria-label="StayNest owner dashboard">
+        <span class="brand-mark" data-icon="logo" data-size="20"></span> StayNest
+      </a>
+      <nav class="side-nav">
+        <a href="owner-dashboard.html" aria-current="page"><span data-icon="grid" data-size="20"></span> Overview</a>
+        <a href="owner-properties.html"><span data-icon="building" data-size="20"></span> Properties</a>
+        <a href="owner-booking.html"><span data-icon="list" data-size="20"></span> Bookings <b class="side-badge" id="sidePending" hidden>0</b></a>
+      </nav>
+      <div class="side-foot"><a href="index.html"><span data-icon="home" data-size="20"></span> View tenant site</a></div>
+    </aside>
+    <div class="owner-body">
+    <header class="owner-header">
+      <a class="brand" href="owner-dashboard.html" aria-label="StayNest owner dashboard">
+        <span class="brand-mark" data-icon="logo" data-size="20"></span> StayNest
+      </a>
+      <p class="header-title">Owner Dashboard</p>
+      <div class="header-actions">
+        <a class="icon-button" id="notifyLink" href="owner-booking.html?status=pending" aria-label="Booking notifications">
+          <span data-icon="bell" data-size="20"></span>
+          <span class="notify-count" id="notifyCount" hidden>0</span>
+        </a>
+        <div class="owner-chip">
+          <span class="avatar" id="ownerAvatar" aria-hidden="true">O</span>
+          <span class="owner-name" id="ownerName">Property Owner</span>
+        </div>
+      </div>
+    </header>
+
+  <main class="owner-main" id="main">
+    <div class="page-head">
+      <div>
+        <h1>Welcome back, <span id="welcomeName">owner</span></h1>
+        <p>A quick look at your properties and the requests waiting for you.</p>
+      </div>
+    </div>
+
+    <section class="stats-grid" aria-label="Overview">
+      <article class="stat-card">
+        <span class="stat-icon" data-icon="building" data-size="22"></span>
+        <div>
+          <p class="stat-label">Properties</p>
+          <p class="stat-value" id="statProperties">0</p>
+          <p class="stat-hint" id="statPropertiesHint"></p>
+        </div>
+      </article>
+      <article class="stat-card">
+        <span class="stat-icon is-orange" data-icon="door" data-size="22"></span>
+        <div>
+          <p class="stat-label">Available rooms</p>
+          <p class="stat-value" id="statRooms">0</p>
+          <p class="stat-hint">In active properties</p>
+        </div>
+      </article>
+      <article class="stat-card">
+        <span class="stat-icon is-amber" data-icon="clock" data-size="22"></span>
+        <div>
+          <p class="stat-label">Pending requests</p>
+          <p class="stat-value" id="statPending">0</p>
+        </div>
+      </article>
+      <article class="stat-card">
+        <span class="stat-icon is-green" data-icon="wallet" data-size="22"></span>
+        <div>
+          <p class="stat-label">Monthly expected rent</p>
+          <p class="stat-value" id="statRent">₹0</p>
+          <p class="stat-hint">From approved bookings</p>
+        </div>
+      </article>
+    </section>
+
+    <section class="hub-grid" aria-label="Owner tools">
+      <a class="hub-card" href="owner-properties.html">
+        <span class="stat-icon is-orange" data-icon="building" data-size="24"></span>
+        <div>
+          <h2>Property Management</h2>
+          <p>Add, edit, activate or remove your PGs, hostels, rooms and flats.</p>
+        </div>
+      </a>
+      <a class="hub-card" href="owner-booking.html">
+        <span class="stat-icon" data-icon="list" data-size="24"></span>
+        <div>
+          <h2>Booking Management</h2>
+          <p>Approve, reject or contact guests who requested your properties.</p>
+        </div>
+      </a>
+    </section>
+
+    <section class="recent" aria-labelledby="recentTitle">
+      <div class="recent-head">
+        <h2 id="recentTitle">Requests waiting for you</h2>
+        <a class="btn btn-small" href="owner-booking.html?status=pending">View all pending</a>
+      </div>
+      <ul class="recent-list" id="recentList"></ul>
+      <p class="recent-empty" id="recentEmpty" hidden>No pending requests right now.</p>
+    </section>
+
+    <p class="prototype-note">
+      Prototype: all owner data is stored in this browser (localStorage). No server is connected.
+    </p>
+  </main>
+    <footer class="owner-footer">&copy; <span id="year"></span> StayNest owner area</footer>
+    </div>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+
+</body>
+</html>

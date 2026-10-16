@@ -1,0 +1,67 @@
+/* =========================================
+   BOOKING REQUEST (extends style.css)
+========================================= */
+
+.book-page { padding-top: 22px; }
+.back-link { display: inline-flex; align-items: center; gap: 6px; color: var(--blue); font-weight: 700; font-size: 0.9rem; }
+.back-link:hover { text-decoration: underline; }
+.page-title { margin-top: 10px; font-size: clamp(1.7rem, 3.4vw, 2.3rem); font-weight: 800; letter-spacing: -0.03em; color: var(--navy); }
+.page-sub { color: var(--muted); margin-bottom: 22px; }
+
+.stepper { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 0 0 24px; padding: 0; list-style: none; }
+.stepper li { position: relative; display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center; }
+.stepper li::before { content: ""; position: absolute; top: 17px; left: calc(-50% + 22px); right: calc(50% + 22px); height: 2px; background: var(--line); }
+.stepper li:first-child::before { display: none; }
+.stepper li > span { position: relative; z-index: 1; display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; border: 2px solid #c2cfe6; background: #fff; font-weight: 800; color: var(--muted); }
+.stepper strong { display: block; font-size: 0.92rem; color: var(--navy); }
+.stepper small { color: var(--muted); font-size: 0.78rem; }
+.stepper li.is-current > span, .stepper li.is-done > span { background: var(--blue); border-color: var(--blue); color: #fff; }
+.stepper li.is-done::before, .stepper li.is-current::before { background: var(--blue); }
+
+.book-layout { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 26px; align-items: start; }
+
+.step-card { padding: 26px; background: #fff; border: 1px solid var(--line); border-radius: var(--radius-lg); box-shadow: var(--shadow); }
+.step-panel { margin: 0; padding: 0; border: 0; min-width: 0; }
+.step-panel legend { padding: 0; margin-bottom: 16px; font-size: 1.2rem; font-weight: 800; color: var(--navy); }
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.span-2 { grid-column: 1 / -1; }
+.req { color: var(--red); }
+.form-summary { margin-bottom: 16px; padding: 10px 14px; border-radius: 10px; background: var(--red-bg); color: var(--red); font-weight: 700; font-size: 0.9rem; }
+.step-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--line); }
+
+.review { margin: 0 0 16px; display: grid; gap: 0; }
+.review div { display: flex; justify-content: space-between; gap: 16px; padding: 11px 0; border-top: 1px solid var(--line); }
+.review div:first-child { border-top: 0; }
+.review dt { color: var(--muted); font-weight: 600; font-size: 0.9rem; }
+.review dd { margin: 0; text-align: right; font-weight: 700; color: var(--navy); overflow-wrap: anywhere; }
+.consent { align-items: flex-start; padding: 14px; border-radius: 12px; background: var(--blue-50); }
+.consent input { margin-top: 3px; flex: none; }
+
+.summary-card { position: sticky; top: 92px; overflow: hidden; background: #fff; border: 1px solid var(--line); border-radius: var(--radius-lg); box-shadow: var(--shadow); }
+.summary-photo { aspect-ratio: 16 / 9; background: #dfe8f7; }
+.summary-photo img, .summary-photo .media-fallback { width: 100%; height: 100%; object-fit: cover; }
+.summary-body { padding: 18px; display: grid; gap: 12px; }
+.summary-body h2 { font-size: 1.2rem; color: var(--navy); }
+.summary-body .stay-loc { margin-top: 2px; }
+.cost-mini { display: grid; gap: 0; margin: 0; background: #f6f9ff; border-radius: 12px; padding: 4px 14px; }
+.cost-mini div { display: flex; justify-content: space-between; gap: 12px; padding: 9px 0; border-top: 1px solid var(--line); font-size: 0.9rem; }
+.cost-mini div:first-child { border-top: 0; }
+.cost-mini dt { color: var(--muted); }
+.cost-mini dd { margin: 0; font-weight: 700; color: var(--navy); text-align: right; }
+
+.success-card { display: grid; justify-items: center; gap: 12px; max-width: 560px; margin: 40px auto 0; padding: 40px 28px; text-align: center; background: #fff; border: 1px solid var(--line); border-radius: var(--radius-lg); box-shadow: var(--shadow); }
+.success-card h1 { font-size: 1.6rem; color: var(--navy); }
+.success-card p { color: var(--muted); }
+.success-icon { display: grid; place-items: center; width: 72px; height: 72px; border-radius: 50%; background: var(--green-bg); color: var(--green); }
+.demo-line { font-size: 0.84rem; }
+
+@media (max-width: 900px) {
+  .book-layout { grid-template-columns: 1fr; }
+  .summary-card { position: static; order: -1; }
+}
+@media (max-width: 560px) {
+  .form-grid { grid-template-columns: 1fr; }
+  .step-card { padding: 18px; }
+  .stepper small { display: none; }
+  .stepper strong { font-size: 0.8rem; }
+}

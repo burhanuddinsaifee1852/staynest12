@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Review, approve and manage booking requests for your StayNest properties.">
+  <title>Booking Management | StayNest Owner</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="owner-dashboard.css">
+  <link rel="stylesheet" href="owner-booking.css">
+
+  <script src="owner-data.js" defer></script>
+  <script src="owner-booking.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <div class="owner-shell">
+    <aside class="owner-side" aria-label="Owner navigation">
+      <a class="brand" href="owner-dashboard.html" aria-label="StayNest owner dashboard">
+        <span class="brand-mark" data-icon="logo" data-size="20"></span> StayNest
+      </a>
+      <nav class="side-nav">
+        <a href="owner-dashboard.html"><span data-icon="grid" data-size="20"></span> Overview</a>
+        <a href="owner-properties.html"><span data-icon="building" data-size="20"></span> Properties</a>
+        <a href="owner-booking.html" aria-current="page"><span data-icon="list" data-size="20"></span> Bookings <b class="side-badge" id="sidePending" hidden>0</b></a>
+      </nav>
+      <div class="side-foot"><a href="index.html"><span data-icon="home" data-size="20"></span> View tenant site</a></div>
+    </aside>
+    <div class="owner-body">
+    <header class="owner-header">
+      <a class="brand" href="owner-dashboard.html" aria-label="StayNest owner dashboard">
+        <span class="brand-mark" data-icon="logo" data-size="20"></span> StayNest
+      </a>
+      <p class="header-title">Booking Management</p>
+      <div class="header-actions">
+      <a class="header-link" href="owner-dashboard.html">
+        <span data-icon="back" data-size="18"></span>
+        <span class="link-text">Back to Owner Dashboard</span>
+      </a>
+        <a class="icon-button" id="notifyLink" href="owner-booking.html?status=pending" aria-label="Booking notifications">
+          <span data-icon="bell" data-size="20"></span>
+          <span class="notify-count" id="notifyCount" hidden>0</span>
+        </a>
+        <div class="owner-chip">
+          <span class="avatar" id="ownerAvatar" aria-hidden="true">O</span>
+          <span class="owner-name" id="ownerName">Property Owner</span>
+        </div>
+      </div>
+    </header>
+
+  <main class="owner-main" id="main">
+    <div class="page-head">
+      <div>
+        <h1>Booking requests</h1>
+        <p>Review requests from students and working professionals, then approve, reject or contact them.</p>
+      </div>
+      <a class="btn" href="owner-properties.html">
+        <span data-icon="building" data-size="18"></span> Manage properties
+      </a>
+    </div>
+
+    <div id="storageWarning" class="storage-warning" role="alert" hidden>
+      Saved booking data in this browser could not be read, so it has not been changed.
+      A backup copy was kept.
+    </div>
+
+    <section class="stats-grid" aria-label="Booking statistics">
+      <article class="stat-card">
+        <span class="stat-icon" data-icon="list" data-size="22"></span>
+        <div>
+          <p class="stat-label">Total bookings</p>
+          <p class="stat-value" id="statTotal">0</p>
+        </div>
+      </article>
+      <article class="stat-card">
+        <span class="stat-icon is-amber" data-icon="clock" data-size="22"></span>
+        <div>
+          <p class="stat-label">Pending requests</p>
+          <p class="stat-value" id="statPending">0</p>
+        </div>
+      </article>
+      <article class="stat-card">
+        <span class="stat-icon is-green" data-icon="check" data-size="22"></span>
+        <div>
+          <p class="stat-label">Approved bookings</p>
+          <p class="stat-value" id="statApproved">0</p>
+        </div>
+      </article>
+      <article class="stat-card">
+        <span class="stat-icon is-red" data-icon="x" data-size="22"></span>
+        <div>
+          <p class="stat-label">Rejected bookings</p>
+          <p class="stat-value" id="statRejected">0</p>
+        </div>
+      </article>
+      <article class="stat-card">
+        <span class="stat-icon is-orange" data-icon="wallet" data-size="22"></span>
+        <div>
+          <p class="stat-label">Monthly expected rent</p>
+          <p class="stat-value" id="statRent">₹0</p>
+          <p class="stat-hint">From approved bookings</p>
+        </div>
+      </article>
+    </section>
+
+    <form class="toolbar" id="filterForm" role="search" aria-label="Search and filter bookings">
+      <div class="field">
+        <label for="searchInput">Search</label>
+        <div class="search-wrap">
+          <span data-icon="search" data-size="18"></span>
+          <input class="input" id="searchInput" type="search" placeholder="Guest name or property name" autocomplete="off">
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="statusFilter">Booking status</label>
+        <select class="select" id="statusFilter">
+          <option value="all">All statuses</option>
+          <option value="pending">Pending</option>
+          <option value="approved">Approved</option>
+          <option value="rejected">Rejected</option>
+          <option value="cancelled">Cancelled</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="typeFilter">Property type</label>
+        <select class="select" id="typeFilter">
+          <option value="all">All types</option>
+          <option value="PG">PG</option>
+          <option value="Hostel">Hostel</option>
+          <option value="Room">Room</option>
+          <option value="Flat">Flat</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="sortSelect">Sort by</label>
+        <select class="select" id="sortSelect">
+          <option value="newest">Newest first</option>
+          <option value="oldest">Oldest first</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <button class="btn" type="button" id="clearFilters">Clear filters</button>
+      </div>
+    </form>
+
+    <p class="results-line" id="resultsLine" aria-live="polite"></p>
+
+    <section id="bookingList" class="booking-list" aria-label="Booking requests"></section>
+
+    <section class="empty-state" id="emptyNone" hidden>
+      <span class="empty-icon" data-icon="list" data-size="30"></span>
+      <h2>No booking requests yet</h2>
+      <p>When a tenant requests one of your active properties, it appears here for your decision.</p>
+      <div class="empty-actions">
+        <a class="btn btn-primary" href="owner-properties.html">Review your properties</a>
+        <button class="btn" type="button" id="loadSamples">Load sample requests</button>
+      </div>
+    </section>
+
+    <section class="empty-state" id="emptySearch" hidden>
+      <span class="empty-icon" data-icon="search" data-size="30"></span>
+      <h2>No results for your search</h2>
+      <p id="emptySearchText">Check the spelling of the guest or property name.</p>
+      <div class="empty-actions">
+        <button class="btn btn-primary" type="button" data-action="clear">Clear search</button>
+      </div>
+    </section>
+
+    <section class="empty-state" id="emptyFiltered" hidden>
+      <span class="empty-icon" data-icon="list" data-size="30"></span>
+      <h2>No bookings match these filters</h2>
+      <p>Change the status or property type, or clear the filters to see every request.</p>
+      <div class="empty-actions">
+        <button class="btn btn-primary" type="button" data-action="clear">Clear filters</button>
+      </div>
+    </section>
+
+    <p class="prototype-note">
+      Prototype: booking requests are read from and saved to this browser (localStorage) only.
+      Approving or rejecting does not notify the guest.
+    </p>
+  </main>
+    <footer class="owner-footer">&copy; <span id="year"></span> StayNest owner area</footer>
+    </div>
+  </div>
+
+  <!-- Booking details -->
+  <dialog id="detailsDialog" aria-labelledby="detailsTitle">
+    <div class="dialog-head">
+      <div>
+        <h2 id="detailsTitle">Booking details</h2>
+        <p id="detailsSubtitle"></p>
+      </div>
+      <button class="dialog-close" type="button" data-close aria-label="Close details">
+        <span data-icon="close" data-size="20"></span>
+      </button>
+    </div>
+    <div class="dialog-body" id="detailsBody"></div>
+    <div class="dialog-foot" id="detailsFoot"></div>
+  </dialog>
+
+  <!-- Contact guest -->
+  <dialog id="contactDialog" class="confirm-dialog" aria-labelledby="contactTitle">
+    <div class="dialog-head">
+      <div>
+        <h2 id="contactTitle">Contact guest</h2>
+        <p id="contactSubtitle"></p>
+      </div>
+      <button class="dialog-close" type="button" data-close aria-label="Close contact options">
+        <span data-icon="close" data-size="20"></span>
+      </button>
+    </div>
+    <div class="dialog-body contact-options" id="contactBody"></div>
+  </dialog>
+
+  <!-- Confirmation -->
+  <dialog id="confirmDialog" class="confirm-dialog" aria-labelledby="confirmTitle" aria-describedby="confirmMessage">
+    <div class="dialog-head">
+      <h2 id="confirmTitle">Confirm</h2>
+    </div>
+    <div class="dialog-body"><p id="confirmMessage"></p></div>
+    <div class="dialog-foot">
+      <button class="btn" type="button" id="confirmCancel">Go back</button>
+      <button class="btn btn-danger" type="button" id="confirmOk">Confirm</button>
+    </div>
+  </dialog>
+
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+
+</body>
+</html>

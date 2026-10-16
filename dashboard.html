@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Your saved stays, stay requests, visits and account on StayNest.">
+  <title>My account | StayNest</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="dashboard.css">
+
+  <script src="owner-data.js" defer></script>
+  <script src="dashboard.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#panel">Skip to content</a>
+  <header id="siteHeader"></header>
+
+  <div class="wrap dash-layout">
+    <aside class="dash-side" aria-label="Account menu">
+      <div class="dash-user">
+        <span class="sn-avatar big" id="sideAvatar">S</span>
+        <div><strong id="sideName">StayNest member</strong><small id="sideEmail">Demo account</small></div>
+      </div>
+      <nav class="dash-nav" id="dashNav">
+        <a href="#overview" data-view="overview"><span data-icon="home" data-size="18"></span> Overview</a>
+        <a href="listings.html"><span data-icon="search" data-size="18"></span> Search</a>
+        <a href="#saved" data-view="saved"><span data-icon="heart" data-size="18"></span> Saved stays <b class="side-count" id="sideSaved">0</b></a>
+        <a href="#visits" data-view="visits"><span data-icon="calendar" data-size="18"></span> My visits <b class="side-count" id="sideVisits">0</b></a>
+        <a href="#requests" data-view="requests"><span data-icon="file" data-size="18"></span> My stay requests <b class="side-count" id="sideRequests">0</b></a>
+        <a href="#account" data-view="account"><span data-icon="user" data-size="18"></span> My account</a>
+      </nav>
+      <button class="btn btn-ghost btn-block" type="button" id="logoutBtn"><span data-icon="logout" data-size="18"></span> Log out</button>
+    </aside>
+
+    <main class="dash-main" id="panel" tabindex="-1"></main>
+  </div>
+
+  <footer id="siteFooter"></footer>
+</body>
+</html>

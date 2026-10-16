@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Add, edit and manage your StayNest properties.">
+  <title>Property Management | StayNest Owner</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="owner-dashboard.css">
+  <link rel="stylesheet" href="owner-properties.css">
+
+  <script src="owner-data.js" defer></script>
+  <script src="owner-properties.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <div class="owner-shell">
+    <aside class="owner-side" aria-label="Owner navigation">
+      <a class="brand" href="owner-dashboard.html" aria-label="StayNest owner dashboard">
+        <span class="brand-mark" data-icon="logo" data-size="20"></span> StayNest
+      </a>
+      <nav class="side-nav">
+        <a href="owner-dashboard.html"><span data-icon="grid" data-size="20"></span> Overview</a>
+        <a href="owner-properties.html" aria-current="page"><span data-icon="building" data-size="20"></span> Properties</a>
+        <a href="owner-booking.html"><span data-icon="list" data-size="20"></span> Bookings <b class="side-badge" id="sidePending" hidden>0</b></a>
+      </nav>
+      <div class="side-foot"><a href="index.html"><span data-icon="home" data-size="20"></span> View tenant site</a></div>
+    </aside>
+    <div class="owner-body">
+    <header class="owner-header">
+      <a class="brand" href="owner-dashboard.html" aria-label="StayNest owner dashboard">
+        <span class="brand-mark" data-icon="logo" data-size="20"></span> StayNest
+      </a>
+      <p class="header-title">Property Management</p>
+      <div class="header-actions">
+      <a class="header-link" href="owner-dashboard.html">
+        <span data-icon="back" data-size="18"></span>
+        <span class="link-text">Back to Owner Dashboard</span>
+      </a>
+        <a class="icon-button" id="notifyLink" href="owner-booking.html?status=pending" aria-label="Booking notifications">
+          <span data-icon="bell" data-size="20"></span>
+          <span class="notify-count" id="notifyCount" hidden>0</span>
+        </a>
+        <div class="owner-chip">
+          <span class="avatar" id="ownerAvatar" aria-hidden="true">O</span>
+          <span class="owner-name" id="ownerName">Property Owner</span>
+        </div>
+      </div>
+    </header>
+
+  <main class="owner-main" id="main">
+    <div class="page-head">
+      <div>
+        <h1>Your properties</h1>
+        <p>Add listings, keep room counts current and choose which properties accept new booking requests.</p>
+      </div>
+      <button class="btn btn-accent" type="button" id="addPropertyButton">
+        <span data-icon="plus" data-size="18"></span> Add property
+      </button>
+    </div>
+
+    <div id="storageWarning" class="storage-warning" role="alert" hidden>
+      Saved property data in this browser could not be read, so it has not been changed.
+      A backup copy was kept. Adding a property will start a new list.
+    </div>
+
+    <section class="stats-grid" aria-label="Property overview">
+      <article class="stat-card">
+        <span class="stat-icon" data-icon="building" data-size="22"></span>
+        <div>
+          <p class="stat-label">Total properties</p>
+          <p class="stat-value" id="statTotal">0</p>
+        </div>
+      </article>
+      <article class="stat-card">
+        <span class="stat-icon is-green" data-icon="check" data-size="22"></span>
+        <div>
+          <p class="stat-label">Active properties</p>
+          <p class="stat-value" id="statActive">0</p>
+        </div>
+      </article>
+      <article class="stat-card">
+        <span class="stat-icon is-amber" data-icon="edit" data-size="22"></span>
+        <div>
+          <p class="stat-label">Draft properties</p>
+          <p class="stat-value" id="statDraft">0</p>
+        </div>
+      </article>
+      <article class="stat-card">
+        <span class="stat-icon is-orange" data-icon="door" data-size="22"></span>
+        <div>
+          <p class="stat-label">Available rooms</p>
+          <p class="stat-value" id="statRooms">0</p>
+          <p class="stat-hint">In active properties</p>
+        </div>
+      </article>
+    </section>
+
+    <form class="toolbar" id="filterForm" role="search" aria-label="Search and filter properties">
+      <div class="field">
+        <label for="searchInput">Search</label>
+        <div class="search-wrap">
+          <span data-icon="search" data-size="18"></span>
+          <input class="input" id="searchInput" type="search" placeholder="Property name or location" autocomplete="off">
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="typeFilter">Property type</label>
+        <select class="select" id="typeFilter">
+          <option value="all">All types</option>
+          <option value="PG">PG</option>
+          <option value="Hostel">Hostel</option>
+          <option value="Room">Room</option>
+          <option value="Flat">Flat</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="statusFilter">Availability status</label>
+        <select class="select" id="statusFilter">
+          <option value="all">All statuses</option>
+          <option value="active">Active</option>
+          <option value="draft">Draft</option>
+          <option value="inactive">Inactive</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="sortSelect">Sort by</label>
+        <select class="select" id="sortSelect">
+          <option value="recent">Recently updated</option>
+          <option value="rent-asc">Rent: low to high</option>
+          <option value="rent-desc">Rent: high to low</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <button class="btn" type="button" id="clearFilters">Clear filters</button>
+      </div>
+    </form>
+
+    <p class="results-line" id="resultsLine" aria-live="polite"></p>
+
+    <section id="propertyGrid" class="property-grid" aria-label="Property listings"></section>
+
+    <section class="empty-state" id="emptyNone" hidden>
+      <span class="empty-icon" data-icon="building" data-size="30"></span>
+      <h2>No properties yet</h2>
+      <p>Add your first PG, hostel, room or flat. Drafts stay private until you activate them.</p>
+      <div class="empty-actions">
+        <button class="btn btn-accent" type="button" data-action="add">
+          <span data-icon="plus" data-size="18"></span> Add property
+        </button>
+      </div>
+    </section>
+
+    <section class="empty-state" id="emptyFiltered" hidden>
+      <span class="empty-icon" data-icon="search" data-size="30"></span>
+      <h2>No properties match</h2>
+      <p>Try a different name or location, or clear the filters to see every property.</p>
+      <div class="empty-actions">
+        <button class="btn btn-primary" type="button" data-action="clear">Clear filters</button>
+      </div>
+    </section>
+
+    <p class="prototype-note">
+      Prototype: properties are saved only in this browser (localStorage). Nothing is sent to a server.
+      Deleting a property keeps its booking requests.
+    </p>
+  </main>
+    <footer class="owner-footer">&copy; <span id="year"></span> StayNest owner area</footer>
+    </div>
+  </div>
+
+  <!-- Add / edit property -->
+  <dialog id="propertyDialog" aria-labelledby="formTitle">
+    <form id="propertyForm" novalidate>
+      <div class="dialog-head">
+        <div>
+          <h2 id="formTitle">Add property</h2>
+          <p>Fields marked <span class="required-mark" aria-hidden="true">*</span><span class="visually-hidden">with an asterisk</span> are required.</p>
+        </div>
+        <button class="dialog-close" type="button" data-close aria-label="Close form">
+          <span data-icon="close" data-size="20"></span>
+        </button>
+      </div>
+
+      <div class="dialog-body">
+        <p class="form-summary" id="formSummary" role="alert" hidden></p>
+
+        <div class="form-grid">
+          <div class="field span-2" data-field="name">
+            <label for="pName">Property name <span class="required-mark" aria-hidden="true">*</span></label>
+            <input class="input" id="pName" name="name" type="text" maxlength="80" autocomplete="off" placeholder="e.g. Green Valley PG" required aria-describedby="err-name">
+            <p class="field-error" id="err-name" hidden></p>
+          </div>
+
+          <div class="field" data-field="type">
+            <label for="pType">Property type <span class="required-mark" aria-hidden="true">*</span></label>
+            <select class="select" id="pType" name="type" required aria-describedby="err-type">
+              <option value="">Select type</option>
+              <option value="PG">PG</option>
+              <option value="Hostel">Hostel</option>
+              <option value="Room">Room</option>
+              <option value="Flat">Flat</option>
+            </select>
+            <p class="field-error" id="err-type" hidden></p>
+          </div>
+
+          <div class="field" data-field="status">
+            <label for="pStatus">Availability status <span class="required-mark" aria-hidden="true">*</span></label>
+            <select class="select" id="pStatus" name="status" required aria-describedby="hint-status err-status">
+              <option value="draft">Draft (not visible to tenants)</option>
+              <option value="active">Active (accepts requests)</option>
+              <option value="inactive">Inactive (paused)</option>
+            </select>
+            <p class="field-hint" id="hint-status">Only active properties with a free room appear to tenants.</p>
+            <p class="field-error" id="err-status" hidden></p>
+          </div>
+
+          <div class="field span-2" data-field="description">
+            <label for="pDescription">Property description</label>
+            <textarea class="textarea" id="pDescription" name="description" maxlength="600" placeholder="Describe the rooms, surroundings and who the property suits." aria-describedby="err-description"></textarea>
+            <p class="field-error" id="err-description" hidden></p>
+          </div>
+
+          <div class="field span-2" data-field="address">
+            <label for="pAddress">Address</label>
+            <input class="input" id="pAddress" name="address" type="text" maxlength="160" placeholder="Street, landmark" autocomplete="off" aria-describedby="err-address">
+            <p class="field-error" id="err-address" hidden></p>
+          </div>
+
+          <div class="field" data-field="locality">
+            <label for="pLocality">Location (area) <span class="required-mark" aria-hidden="true">*</span></label>
+            <input class="input" id="pLocality" name="locality" type="text" maxlength="60" placeholder="e.g. Vijay Nagar" required autocomplete="off" aria-describedby="err-locality">
+            <p class="field-error" id="err-locality" hidden></p>
+          </div>
+
+          <div class="field" data-field="city">
+            <label for="pCity">City <span class="required-mark" aria-hidden="true">*</span></label>
+            <input class="input" id="pCity" name="city" type="text" maxlength="60" value="Indore" required autocomplete="off" aria-describedby="err-city">
+            <p class="field-error" id="err-city" hidden></p>
+          </div>
+
+          <div class="field" data-field="price">
+            <label for="pRent">Monthly rent (₹) <span class="required-mark" aria-hidden="true">*</span></label>
+            <input class="input" id="pRent" name="price" type="number" inputmode="numeric" min="1" step="1" placeholder="e.g. 6500" required aria-describedby="err-price">
+            <p class="field-error" id="err-price" hidden></p>
+          </div>
+
+          <div class="field" data-field="unit">
+            <label for="pUnit">Rent is charged per</label>
+            <select class="select" id="pUnit" name="unit">
+              <option value="person">Person (bed)</option>
+              <option value="room">Room</option>
+            </select>
+          </div>
+
+          <div class="field" data-field="sharing">
+            <label for="pSharing">Sharing</label>
+            <select class="select" id="pSharing" name="sharing">
+              <option value="Private">Private</option>
+              <option value="Twin">Twin</option>
+              <option value="Triple">Triple</option>
+            </select>
+          </div>
+
+          <div class="field" data-field="furnishing">
+            <label for="pFurnishing">Furnishing</label>
+            <select class="select" id="pFurnishing" name="furnishing">
+              <option value="Furnished">Furnished</option>
+              <option value="Semi-Furnished">Semi-Furnished</option>
+              <option value="Unfurnished">Unfurnished</option>
+            </select>
+          </div>
+
+          <div class="field span-2" data-field="meals">
+            <label for="pMeals">Meals</label>
+            <select class="select" id="pMeals" name="meals">
+              <option value="none">Not included</option>
+              <option value="included">Included in rent</option>
+              <option value="optional">Optional, charged separately</option>
+            </select>
+          </div>
+
+          <div class="field" data-field="deposit">
+            <label for="pDeposit">Security deposit (₹)</label>
+            <input class="input" id="pDeposit" name="deposit" type="number" inputmode="numeric" min="0" step="1" placeholder="e.g. 10000" aria-describedby="err-deposit">
+            <p class="field-error" id="err-deposit" hidden></p>
+          </div>
+
+          <div class="field" data-field="image">
+            <label for="pImage">Property image URL</label>
+            <input class="input" id="pImage" name="image" type="url" maxlength="500" placeholder="https://..." aria-describedby="hint-image err-image">
+            <p class="field-hint" id="hint-image">Optional. A placeholder shows if the image can't load.</p>
+            <p class="field-error" id="err-image" hidden></p>
+          </div>
+
+          <div class="field" data-field="totalRooms">
+            <label for="pTotal">Total rooms <span class="required-mark" aria-hidden="true">*</span></label>
+            <input class="input" id="pTotal" name="totalRooms" type="number" inputmode="numeric" min="1" step="1" required aria-describedby="err-totalRooms">
+            <p class="field-error" id="err-totalRooms" hidden></p>
+          </div>
+
+          <div class="field" data-field="availableRooms">
+            <label for="pAvailable">Available rooms <span class="required-mark" aria-hidden="true">*</span></label>
+            <input class="input" id="pAvailable" name="availableRooms" type="number" inputmode="numeric" min="0" step="1" required aria-describedby="err-availableRooms">
+            <p class="field-error" id="err-availableRooms" hidden></p>
+          </div>
+
+          <fieldset class="field span-2 amenity-fieldset" data-field="amenities">
+            <legend class="label-text">Amenities</legend>
+            <div class="amenity-options" id="amenityOptions"></div>
+            <label class="field-sublabel" for="pAmenitiesOther">Other amenities (comma separated)</label>
+            <input class="input" id="pAmenitiesOther" type="text" maxlength="160" placeholder="e.g. Gym, Terrace" autocomplete="off">
+          </fieldset>
+        </div>
+      </div>
+
+      <div class="dialog-foot">
+        <button class="btn" type="button" data-close>Cancel</button>
+        <button class="btn btn-accent" type="submit" id="saveButton">Save property</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- Property details -->
+  <dialog id="detailsDialog" aria-labelledby="detailsTitle">
+    <div class="dialog-head">
+      <div>
+        <h2 id="detailsTitle">Property details</h2>
+        <p id="detailsSubtitle"></p>
+      </div>
+      <button class="dialog-close" type="button" data-close aria-label="Close details">
+        <span data-icon="close" data-size="20"></span>
+      </button>
+    </div>
+    <div class="dialog-body" id="detailsBody"></div>
+    <div class="dialog-foot">
+      <button class="btn" type="button" data-close>Close</button>
+      <button class="btn btn-primary" type="button" id="detailsEdit">
+        <span data-icon="edit" data-size="16"></span> Edit property
+      </button>
+    </div>
+  </dialog>
+
+  <!-- Confirmation -->
+  <dialog id="confirmDialog" class="confirm-dialog" aria-labelledby="confirmTitle" aria-describedby="confirmMessage">
+    <div class="dialog-head">
+      <h2 id="confirmTitle">Confirm</h2>
+    </div>
+    <div class="dialog-body"><p id="confirmMessage"></p></div>
+    <div class="dialog-foot">
+      <button class="btn" type="button" id="confirmCancel">Cancel</button>
+      <button class="btn btn-danger" type="button" id="confirmOk">Confirm</button>
+    </div>
+  </dialog>
+
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+
+</body>
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Request a stay in three simple steps. The owner confirms your request.">
+  <title>Request to stay | StayNest</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="booking.css">
+
+  <script src="owner-data.js" defer></script>
+  <script src="booking.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <header id="siteHeader"></header>
+
+  <main class="wrap book-page" id="main">
+    <section class="empty-state" id="noSelection" hidden>
+      <span class="empty-icon" data-icon="home" data-size="30"></span>
+      <h1 id="noSelectionTitle">No stay selected yet</h1>
+      <p id="noSelectionText">Choose a property and room before continuing.</p>
+      <div class="empty-actions"><a class="btn btn-primary" href="listings.html">Explore stays</a></div>
+    </section>
+
+    <div id="flow" hidden>
+      <a class="back-link" id="backToStay" href="listings.html"><span data-icon="left" data-size="16"></span> Back to property</a>
+      <h1 class="page-title">My stay request</h1>
+      <p class="page-sub">Track the status of your stay request and next steps.</p>
+
+      <ol class="stepper" id="stepper" aria-label="Progress">
+        <li class="is-current" data-step="1"><span>1</span><div><strong>Room &amp; move-in</strong><small>Selected room and date</small></div></li>
+        <li data-step="2"><span>2</span><div><strong>Your details</strong><small>Share basic information</small></div></li>
+        <li data-step="3"><span>3</span><div><strong>Review</strong><small>We'll confirm with owner</small></div></li>
+      </ol>
+
+      <div class="book-layout">
+        <form class="step-card" id="requestForm" novalidate>
+          <p class="form-summary" id="formSummary" role="alert" hidden></p>
+
+          <fieldset class="step-panel" id="step1">
+            <legend>Room &amp; move-in</legend>
+            <div class="form-grid">
+              <div class="field span-2" data-field="room">
+                <label for="roomSelect">Room type</label>
+                <select class="select" id="roomSelect"></select>
+              </div>
+              <div class="field" data-field="moveIn">
+                <label for="moveIn">Move-in date <span class="req" aria-hidden="true">*</span></label>
+                <input class="input" type="date" id="moveIn" required aria-describedby="err-moveIn">
+                <p class="field-error" id="err-moveIn" hidden></p>
+              </div>
+              <div class="field" data-field="duration">
+                <label for="duration">Stay duration</label>
+                <select class="select" id="duration">
+                  <option>3 months</option>
+                  <option selected>6 months</option>
+                  <option>12 months</option>
+                  <option>Flexible</option>
+                </select>
+              </div>
+              <div class="field" data-field="occupants">
+                <label for="occupants">Number of occupants</label>
+                <select class="select" id="occupants">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4+">4 or more</option>
+                </select>
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset class="step-panel" id="step2" hidden>
+            <legend>Your details</legend>
+            <div class="form-grid">
+              <div class="field span-2" data-field="name">
+                <label for="guestName">Full name <span class="req" aria-hidden="true">*</span></label>
+                <input class="input" id="guestName" type="text" autocomplete="name" maxlength="80" required aria-describedby="err-name">
+                <p class="field-error" id="err-name" hidden></p>
+              </div>
+              <div class="field" data-field="email">
+                <label for="guestEmail">Email address <span class="req" aria-hidden="true">*</span></label>
+                <input class="input" id="guestEmail" type="email" autocomplete="email" required placeholder="you@example.com" aria-describedby="err-email">
+                <p class="field-error" id="err-email" hidden></p>
+              </div>
+              <div class="field" data-field="phone">
+                <label for="guestPhone">Mobile number <span class="req" aria-hidden="true">*</span></label>
+                <input class="input" id="guestPhone" type="tel" inputmode="tel" autocomplete="tel" required placeholder="+91 98765 43210" aria-describedby="err-phone">
+                <p class="field-error" id="err-phone" hidden></p>
+              </div>
+              <div class="field span-2" data-field="message">
+                <label for="guestMessage">Message to the owner (optional)</label>
+                <textarea class="textarea" id="guestMessage" maxlength="400" placeholder="Tell the owner a little about yourself, e.g. student at IIPS or working in Super Corridor."></textarea>
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset class="step-panel" id="step3" hidden>
+            <legend>Review your request</legend>
+            <dl class="review" id="reviewList"></dl>
+            <label class="checkline consent" data-field="consent">
+              <input type="checkbox" id="consent" aria-describedby="err-consent">
+              <span>I understand this is a request, not a confirmed booking. The owner must accept it first.</span>
+            </label>
+            <p class="field-error" id="err-consent" hidden></p>
+          </fieldset>
+
+          <div class="step-actions">
+            <button class="btn btn-ghost" type="button" id="backBtn" hidden>Back</button>
+            <button class="btn btn-primary" type="submit" id="nextBtn">Continue</button>
+          </div>
+        </form>
+
+        <aside class="summary-card" aria-label="Stay summary" id="summary"></aside>
+      </div>
+    </div>
+
+    <section class="success-card" id="success" hidden aria-live="polite">
+      <span class="success-icon" data-icon="check" data-size="34"></span>
+      <h1>Request sent to the owner</h1>
+      <p id="successText"></p>
+      <p class="demo-line">Demo prototype: your request is saved only in this browser.</p>
+      <div class="empty-actions">
+        <a class="btn btn-primary" href="my-bookings.html">View my requests</a>
+        <a class="btn" href="listings.html">Keep exploring</a>
+      </div>
+    </section>
+  </main>
+
+  <footer id="siteFooter"></footer>
+</body>
+</html>

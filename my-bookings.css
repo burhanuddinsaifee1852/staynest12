@@ -1,0 +1,60 @@
+/* =========================================
+   MY STAY REQUESTS (extends style.css)
+========================================= */
+
+.req-page { padding-top: 26px; }
+.req-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 20px; }
+.req-head h1 { font-size: clamp(1.7rem, 3.4vw, 2.3rem); font-weight: 800; letter-spacing: -0.03em; color: var(--navy); }
+.req-head p { color: var(--muted); }
+
+.tabs { display: flex; gap: 6px; overflow-x: auto; margin-bottom: 18px; padding-bottom: 2px; border-bottom: 1px solid var(--line); }
+.tab { display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border: 0; border-bottom: 3px solid transparent; background: none; font-weight: 700; color: var(--navy-2); white-space: nowrap; }
+.tab:hover { color: var(--blue); }
+.tab.is-active { color: var(--blue); border-bottom-color: var(--blue); }
+.tab-count { padding: 0 8px; border-radius: 999px; background: #e9eef8; font-size: 0.76rem; line-height: 20px; }
+.tab.is-active .tab-count { background: var(--blue-50); }
+
+.request-list { display: grid; gap: 16px; }
+.request-card { display: grid; grid-template-columns: 150px 1fr; gap: 18px; padding: 16px; background: #fff; border: 1px solid var(--line); border-radius: var(--radius-lg); box-shadow: var(--shadow); }
+.request-photo { border-radius: 12px; overflow: hidden; background: #dfe8f7; min-height: 120px; }
+.request-photo img, .request-photo .media-fallback { width: 100%; height: 100%; object-fit: cover; }
+.request-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.request-top h2 { font-size: 1.15rem; color: var(--navy); }
+.request-top .sub { display: flex; align-items: center; gap: 6px; color: var(--muted); font-size: 0.88rem; }
+.request-meta { text-align: right; }
+.request-meta small { display: block; margin-top: 4px; color: var(--muted); font-size: 0.8rem; }
+
+.fact-row { display: grid; grid-template-columns: repeat(4, 1fr); margin: 14px 0; padding: 12px; background: #f4f7fd; border-radius: 12px; gap: 12px; }
+.fact { display: flex; align-items: flex-start; gap: 10px; min-width: 0; }
+.fact .icon { color: var(--muted); margin-top: 2px; }
+.fact small { display: block; font-size: 0.74rem; color: var(--muted); }
+.fact strong { display: block; font-size: 0.92rem; color: var(--navy); overflow-wrap: anywhere; }
+.request-note { margin-bottom: 12px; padding: 10px 14px; border-radius: 10px; font-size: 0.88rem; font-weight: 600; }
+.note-ok { background: var(--green-bg); color: var(--green); }
+.note-bad { background: var(--red-bg); color: var(--red); }
+.note-mute { background: #eef1f6; color: #3a4760; }
+.request-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 10px; }
+
+.visits { margin-top: 36px; }
+.visits h2 { margin-bottom: 12px; font-size: 1.3rem; color: var(--navy); }
+.visit-list { display: grid; gap: 10px; }
+.visit-list li { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; padding: 14px 16px; background: #fff; border: 1px solid var(--line); border-radius: var(--radius); }
+.visit-list .when { display: grid; place-items: center; width: 52px; height: 52px; border-radius: 12px; background: var(--blue-50); color: var(--blue-dark); font-weight: 800; line-height: 1.1; text-align: center; }
+.visit-list .when small { display: block; font-size: 0.68rem; font-weight: 700; text-transform: uppercase; }
+.visit-list .what { flex: 1; min-width: 180px; }
+.visit-list .what strong { color: var(--navy); display: block; }
+.visit-list .what span { color: var(--muted); font-size: 0.86rem; }
+
+.detail-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 14px 20px; margin: 0; }
+.detail-grid dt { font-size: 0.78rem; font-weight: 600; color: var(--muted); }
+.detail-grid dd { margin: 2px 0 0; font-weight: 700; color: var(--navy); overflow-wrap: anywhere; }
+.detail-grid .wide { grid-column: 1 / -1; }
+.detail-grid .wide dd { font-weight: 500; color: var(--text); }
+
+@media (max-width: 760px) {
+  .request-card { grid-template-columns: 1fr; }
+  .request-photo { height: 160px; }
+  .fact-row { grid-template-columns: 1fr 1fr; }
+  .request-meta { text-align: left; }
+  .request-actions .btn { flex: 1 1 45%; }
+}

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Search and filter PGs, hostels, rooms and flats in Indore by budget, sharing, meals and furnishing.">
+  <title>Find your stay in Indore | StayNest</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="listings.css">
+
+  <script src="owner-data.js" defer></script>
+  <script src="listings.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#results">Skip to results</a>
+  <header id="siteHeader"></header>
+
+  <main class="wrap list-page">
+    <form class="locate" id="locateForm" role="search" aria-label="Search by city or locality">
+      <label class="visually-hidden" for="locationSearch">City, locality or property name</label>
+      <span class="locate-icon" data-icon="pin" data-size="20"></span>
+      <input class="locate-input" id="locationSearch" type="search" list="localityOptions" placeholder="Search city, locality or property" autocomplete="off">
+      <datalist id="localityOptions"></datalist>
+      <button class="btn btn-primary btn-sm" type="submit">Search</button>
+    </form>
+
+    <div class="list-layout">
+      <div class="sheet-overlay" id="sheetOverlay" hidden></div>
+
+      <aside class="filters" id="filterPanel" aria-label="Filters">
+        <form id="filterForm">
+          <div class="filters-head">
+            <h2>Filters</h2>
+            <button class="text-btn" type="button" id="clearAll">Clear all</button>
+            <button class="dialog-close sheet-close" type="button" id="closeSheet" aria-label="Close filters"><span data-icon="close" data-size="20"></span></button>
+          </div>
+
+          <fieldset class="filter-group">
+            <legend>Monthly budget <span>(per person)</span></legend>
+            <p class="budget-read" id="budgetRead" aria-live="polite">₹2,000 – ₹20,000</p>
+            <div class="dual-range">
+              <input type="range" id="budgetMin" min="2000" max="20000" step="500" value="2000" aria-label="Minimum monthly budget">
+              <input type="range" id="budgetMax" min="2000" max="20000" step="500" value="20000" aria-label="Maximum monthly budget">
+            </div>
+            <div class="range-ends"><span>₹2,000</span><span>₹20,000+</span></div>
+          </fieldset>
+
+          <fieldset class="filter-group">
+            <legend>Property type</legend>
+            <label class="checkline"><input type="checkbox" name="type" value="PG"> PG</label>
+            <label class="checkline"><input type="checkbox" name="type" value="Hostel"> Hostel</label>
+            <label class="checkline"><input type="checkbox" name="type" value="Room"> Room</label>
+            <label class="checkline"><input type="checkbox" name="type" value="Flat"> Flat</label>
+          </fieldset>
+
+          <fieldset class="filter-group">
+            <legend>Sharing</legend>
+            <label class="checkline"><input type="checkbox" name="sharing" value="Private"> Private</label>
+            <label class="checkline"><input type="checkbox" name="sharing" value="Twin"> Twin</label>
+            <label class="checkline"><input type="checkbox" name="sharing" value="Triple"> Triple</label>
+          </fieldset>
+
+          <fieldset class="filter-group">
+            <legend>Meals included</legend>
+            <label class="checkline"><input type="checkbox" id="mealsFilter"> Yes</label>
+          </fieldset>
+
+          <fieldset class="filter-group">
+            <legend>Furnished</legend>
+            <label class="checkline"><input type="checkbox" id="furnishedFilter"> Yes</label>
+          </fieldset>
+
+          <div class="filters-foot">
+            <button class="btn btn-block" type="button" id="clearFilters">Clear filters</button>
+            <button class="btn btn-primary btn-block sheet-only" type="button" id="applySheet">Show results</button>
+          </div>
+        </form>
+      </aside>
+
+      <section class="results" id="results" tabindex="-1" aria-labelledby="resultsTitle">
+        <div class="results-head">
+          <div>
+            <h1 id="resultsTitle">Find your stay in Indore</h1>
+            <p id="resultsSub">Comfortable PGs, rooms and flats for students and working professionals.</p>
+          </div>
+          <div class="results-tools">
+            <button class="btn btn-sm filter-open" type="button" id="openSheet" aria-controls="filterPanel">
+              <span data-icon="filter" data-size="16"></span> Filters <span class="count-dot" id="filterCount" hidden>0</span>
+            </button>
+            <label class="sort-wrap" for="sortSelect">Sort by
+              <select class="select" id="sortSelect">
+                <option value="recommended">Recommended</option>
+                <option value="low">Rent: low to high</option>
+                <option value="high">Rent: high to low</option>
+                <option value="rating">Top rated</option>
+              </select>
+            </label>
+          </div>
+        </div>
+
+        <div class="chip-row" id="chipRow" aria-label="Active filters"></div>
+        <p class="results-count" id="resultsCount" aria-live="polite"></p>
+
+        <div class="listing-grid" id="listingGrid"></div>
+
+        <section class="empty-state" id="emptyState" hidden>
+          <span class="empty-icon" data-icon="search" data-size="30"></span>
+          <h2 id="emptyTitle">No stays match these filters</h2>
+          <p id="emptyText">Try adjusting your location, budget or room type.</p>
+          <div class="empty-actions">
+            <button class="btn btn-primary" type="button" id="emptyClear">Clear filters</button>
+          </div>
+        </section>
+      </section>
+    </div>
+  </main>
+
+  <footer id="siteFooter"></footer>
+</body>
+</html>

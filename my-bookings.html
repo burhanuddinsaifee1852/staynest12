@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Track your StayNest stay requests and scheduled visits.">
+  <title>My stay requests | StayNest</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="my-bookings.css">
+
+  <script src="owner-data.js" defer></script>
+  <script src="my-bookings.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <header id="siteHeader"></header>
+
+  <main class="wrap req-page" id="main">
+    <div class="req-head">
+      <div>
+        <h1>My stay requests</h1>
+        <p>Track the status of your stay requests and next steps.</p>
+      </div>
+      <a class="btn btn-primary" href="listings.html">Explore stays</a>
+    </div>
+
+    <div class="tabs" role="tablist" aria-label="Filter requests" id="tabs">
+      <button type="button" role="tab" class="tab is-active" data-filter="all" aria-selected="true">All <span class="tab-count" id="countAll">0</span></button>
+      <button type="button" role="tab" class="tab" data-filter="pending" aria-selected="false">Awaiting <span class="tab-count" id="countPending">0</span></button>
+      <button type="button" role="tab" class="tab" data-filter="approved" aria-selected="false">Approved <span class="tab-count" id="countApproved">0</span></button>
+      <button type="button" role="tab" class="tab" data-filter="closed" aria-selected="false">Closed <span class="tab-count" id="countClosed">0</span></button>
+    </div>
+
+    <section id="requestList" class="request-list" aria-live="polite" aria-label="Your requests"></section>
+
+    <section class="empty-state" id="emptyAll" hidden>
+      <span class="empty-icon" data-icon="file" data-size="30"></span>
+      <h2>No stay requests yet</h2>
+      <p>When you request a stay, you can follow the owner's decision right here.</p>
+      <div class="empty-actions"><a class="btn btn-primary" href="listings.html">Explore stays</a></div>
+    </section>
+
+    <section class="empty-state" id="emptyFilter" hidden>
+      <span class="empty-icon" data-icon="search" data-size="30"></span>
+      <h2>Nothing in this view</h2>
+      <p>None of your requests have this status right now.</p>
+      <div class="empty-actions"><button class="btn btn-primary" type="button" id="showAll">Show all requests</button></div>
+    </section>
+
+    <section class="visits" id="visitsSection" aria-labelledby="visitsTitle" hidden>
+      <h2 id="visitsTitle">Your scheduled visits</h2>
+      <ul id="visitList" class="visit-list"></ul>
+    </section>
+  </main>
+
+  <dialog id="detailsDialog" aria-labelledby="detailsTitle">
+    <div class="dialog-head">
+      <div><h2 id="detailsTitle">Request details</h2><p id="detailsSub"></p></div>
+      <button class="dialog-close" type="button" data-close aria-label="Close details"><span data-icon="close" data-size="20"></span></button>
+    </div>
+    <div class="dialog-body" id="detailsBody"></div>
+    <div class="dialog-foot"><button class="btn btn-ghost" type="button" data-close>Close</button></div>
+  </dialog>
+
+  <dialog id="confirmDialog" class="confirm-dialog" aria-labelledby="confirmTitle" aria-describedby="confirmMessage">
+    <div class="dialog-head"><h2 id="confirmTitle">Confirm</h2></div>
+    <div class="dialog-body"><p id="confirmMessage"></p></div>
+    <div class="dialog-foot">
+      <button class="btn btn-ghost" type="button" id="confirmCancel">Go back</button>
+      <button class="btn btn-danger-solid" type="button" id="confirmOk">Confirm</button>
+    </div>
+  </dialog>
+
+  <footer id="siteFooter"></footer>
+</body>
+</html>
